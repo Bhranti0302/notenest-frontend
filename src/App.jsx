@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import ProtectedRoute from "./components/common/ProtectedRoute";
 
@@ -14,27 +16,37 @@ import Profile from "./pages/Profile";
 
 const App = () => {
   return (
-    <Routes>
-      {/* Public Routes */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+    <>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-      {/* Protected Routes */}
-      <Route element={<ProtectedRoute />}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/notes" element={<AllNotes />} />
-        <Route path="/notes/create" element={<CreateNote />} />
-        <Route path="/notes/:id" element={<NoteDetail />} />
-        <Route path="/manage-by-date" element={<ManageByDate />} />
-        <Route path="/profile" element={<Profile />} />
-      </Route>
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/notes" element={<AllNotes />} />
+          <Route path="/notes/create" element={<CreateNote />} />
+          <Route path="/notes/:id" element={<NoteDetail />} />
+          <Route path="/manage-by-date" element={<ManageByDate />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
 
-      {/* Default Route */}
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        {/* Default Route */}
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-      {/* Unknown Routes */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        {/* Unknown Routes */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        theme="colored"
+        closeOnClick
+        pauseOnHover
+      />
+    </>
   );
 };
 
