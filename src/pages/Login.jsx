@@ -1,16 +1,25 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { useAuth } from "../context/AuthContext";
 
 import Logo from "../components/common/Logo";
 import FormField from "../components/common/FormField";
 import loginImage from "../assets/images/login-image.png";
 
 export default function Login() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -20,12 +29,27 @@ export default function Login() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  // Handle login
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Login Data:", formData);
+    try {
+      setLoading(true);
 
-    // Next: connect your login API
+      await login(formData);
+
+      // Show success popup
+      toast.success("Login successful!");
+
+      navigate("/dashboard", { replace: true });
+    } catch (error) {
+      // Show error popup
+      toast.error(
+        error.response?.data?.message || "Login failed. Please try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -98,9 +122,10 @@ export default function Login() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full rounded-lg bg-violet-600 py-3 font-semibold text-white transition hover:bg-violet-700 focus-visible:outline-offset-4"
+                disabled={loading}
+                className="w-full rounded-lg bg-violet-600 py-3 font-semibold text-white transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Login
+                {loading ? "Logging In..." : "Login"}
               </button>
             </form>
 
