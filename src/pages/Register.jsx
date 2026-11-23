@@ -1,17 +1,26 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { useAuth } from "../context/AuthContext";
 
 import Logo from "../components/common/Logo";
 import FormField from "../components/common/FormField";
 import registerImage from "../assets/images/register-image.png";
 
 export default function Register() {
+  const { register } = useAuth();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -21,12 +30,31 @@ export default function Register() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  // Handle registration
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Registration Data:", formData);
+    try {
+      setLoading(true);
 
-    // Next: connect your register API
+      const response = await register(formData);
+
+      // Show success popup
+      toast.success(response.data.message || "Account created successfully!");
+
+      // Redirect to login after successful registration
+      setTimeout(() => {
+        navigate("/login", { replace: true });
+      }, 1500);
+    } catch (error) {
+      // Show error popup
+      toast.error(
+        error.response?.data?.message ||
+          "Registration failed. Please try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -104,9 +132,10 @@ export default function Register() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="mt-2 w-full rounded-lg bg-violet-600 py-3 font-semibold text-white transition hover:bg-violet-700 focus-visible:outline-offset-4"
+                disabled={loading}
+                className="mt-2 w-full rounded-lg bg-violet-600 py-3 font-semibold text-white transition hover:bg-violet-700 focus-visible:outline-offset-4 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Create Account
+                {loading ? "Creating Account..." : "Create Account"}
               </button>
             </form>
 
