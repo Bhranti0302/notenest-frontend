@@ -1,9 +1,10 @@
 import React from 'react'
+import Sidebar from "../components/layout/Sidebar";
 
 export default function Dashboard() {
   return (
     <div>
-      Dashboard page
+      <Sidebar />
     </div>
-  )
+  );
 }
