@@ -1,21 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Harmattan:wght@400;500;600;700&display=swap");
-
 @import "tailwindcss";
 
-/* ==============================
-   1. Global Reset
-================================= */
+@import url("https://fonts.googleapis.com/css2?family=Harmattan:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@400;500;600;700;800&display=swap");
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* 1. Global Reset */
 
+
+/* 2. HTML */
 html {
   scroll-behavior: smooth;
 }
 
+/* 3. Body */
 body {
   min-width: 320px;
   min-height: 100vh;
@@ -25,18 +21,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ==============================
-   2. Root Container
-================================= */
-
+/* 4. Root */
 #root {
   min-height: 100vh;
 }
 
-/* ==============================
-   3. Scrollbar Styling
-================================= */
-
+/* 5. Scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
@@ -55,10 +45,7 @@ body {
   background: #a99bc9;
 }
 
-/* ==============================
-   4. Form Elements
-================================= */
-
+/* 6. Form Elements */
 input,
 textarea,
 select,
@@ -74,24 +61,15 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* ==============================
-   5. Selection Styling
-================================= */
-
+/* 7. Selection */
 ::selection {
   background-color: #ddd6fe;
   color: #5b21b6;
 }
 
-/* ==============================
-   6. Smooth Transitions
-================================= */
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
 
+/* 9. Transitions */
 button,
 a,
 input,
@@ -103,10 +81,7 @@ textarea {
     box-shadow 0.2s ease;
 }
 
-/* ==============================
-   7. Custom Animations
-================================= */
-
+/* 10. Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -123,11 +98,14 @@ textarea {
   animation: fadeIn 0.4s ease-out;
 }
 
-/* ==============================
-   8. Focus Accessibility
-================================= */
-
+/* 11. Focus */
 :focus-visible {
   outline: 2px solid #8b5cf6;
   outline-offset: 3px;
+}
+
+/* 12. Logo */
+.logo {
+  font-family: "Arima Madurai", sans-serif;
+  font-weight: 700;
 }
