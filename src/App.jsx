@@ -8,7 +8,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import AllNotes from "./pages/AllNotes";
 import CreateNote from "./pages/CreateNote";
-import NoteDetail from "./pages/NoteDetail";
+import NoteDetail from "./pages/NoteDetails";
 import ManageByDate from "./pages/ManageByDate";
 import Profile from "./pages/Profile";
 
